@@ -10,6 +10,10 @@
   <body>
     <div class="container">
         <img src="../static/logo_med.png" alt="" class="logo" />
+         <img src="../static/logo_med.png" alt="" class="logo" />
+         {% if message %}
+            <p class = "message"> {{message | safe}} <p>
+        {%endif%}
         <form action="/login" method = "POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" ><br>
