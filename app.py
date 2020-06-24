@@ -91,7 +91,7 @@ def sigin():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if db.session.query(New).filter(New.username == username):
+        if db.session.query(New).filter(New.username == username).count() >= 1:
             return render_template('signup.html',  message = 'Username-ul este deja folosit de catre alt utilizator')
         if(len(password) < 6):
             return render_template('signup.html',  message = 'Parola prea scurta')
