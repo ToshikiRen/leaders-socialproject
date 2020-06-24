@@ -77,8 +77,8 @@ def login():
         #TO DO: Adaugare verificare date logare
         username = request.form['username']
         password = request.form['password']
-        if (db.session.query(New).filter(username == New.username).count() AND
-            db.session.query(New).filter(username == New.username).count()):
+        if (db.session.query(New).filter(New.username == username).count() and
+            db.session.query(New).filter(New.password == password).count()):
             return render_template('index.html')
         return render_template('index.html', message = 'Date invalide')
 
