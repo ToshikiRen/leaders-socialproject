@@ -77,11 +77,11 @@ def login():
         #TO DO: Adaugare verificare date logare
         username = request.form['username']
         password = request.form['password']
-        if db.session.query(New).filter(username == New.username).count() &&
-            db.session.query(New).filter(username == New.username).count():
+        if (db.session.query(New).filter(username == New.username).count() AND
+            db.session.query(New).filter(username == New.username).count()):
             return render_template('index.html')
         return render_template('index.html', message = 'Date invalide')
-        
+
 # Asta ruleaza cand apasam pe Sign Up
 @app.route('/signup', methods=['POST'])
 def gotosignin():
