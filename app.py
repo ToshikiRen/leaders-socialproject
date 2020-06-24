@@ -35,18 +35,14 @@ class Feedback(db.Model):
 
 class New(db.Model):
     
-    __tablename__ = 'new'
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
-    customer = db.Column(db.String(200), unique = True)
-    dealer = db.Column(db.String(200), )
-    rating = db.Column(db.Integer)
-    comments = db.Column(db.Text())
+    username = db.Column(db.String(200), unique = True)
+    password = db.Column(db.String(200), )
 
-    def __init__(self, customer, dealer, rating, comments):
-        self.customer = customer
-        self.dealer = dealer
-        self.rating = rating
-        self.comments = comments
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
         
 
 @app.route('/')
