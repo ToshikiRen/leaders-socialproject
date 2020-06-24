@@ -48,7 +48,7 @@ img {
 	margin: 1rem 0;
 }
 
-input[type = 'password']{
+.pw{
 	display: block;
 	width: 100%;
 	padding: 0.4rem;
