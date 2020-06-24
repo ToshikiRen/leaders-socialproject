@@ -44,12 +44,13 @@ class New(db.Model):
         self.username = username
         self.password = password
         
-
+# Asta e rulat prima data cand deschidem aplicatia
 @app.route('/')
 def index():
     # Add login.html, the after login go to index
     return render_template('login.html')
 
+#Asta ruleaza cand dam submit datelor introduse in formular
 @app.route('/submit', methods=['POST'])
 def submit():
     if request.method == 'POST':
@@ -64,25 +65,40 @@ def submit():
             data = Feedback(customer, dealer, rating, comments)
             db.session.add(data)
             db.session.commit()
-            send_mail(customer, dealer, rating, comments)
+            #send_mail(customer, dealer, rating, comments)
             return render_template('success.html')
     return render_template('index.html', message = 'You have already submited feedback')
 
+
+# Asta ruleaza cand vrem sa ne conectam la aplicatie
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
+        #TO DO: Adaugare verificare date logare
         username = request.form['username']
         password = request.form['password']
         return render_template('index.html')
 
+# Asta ruleaza cand apasam pe Sign Up
 @app.route('/signup', methods=['POST'])
 def gotosignin():
     if request.method == 'POST':
         return render_template('signup.html')
 
+# Asta ruleaza cand daum submit datelor pentru creare cont nou
 @app.route('/response', methods=['POST'])
 def sigin():
     if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if db.session.query(New).filter(New.username == username):
+            return render_template('signup.html',  message = 'Username-ul este deja folosit de catre alt utilizator')
+        if(len(password) < 6):
+            return render_template('signup.html',  message = 'Parola prea scurta')
+        data = New(username, password)
+        db.session.add(data)
+        db.session.commit()
+        return render_template('success.html')
         return render_template('login.html',  message = 'Sign Up succesful')
 
 if __name__ == '__main__':
