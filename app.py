@@ -77,8 +77,11 @@ def login():
         #TO DO: Adaugare verificare date logare
         username = request.form['username']
         password = request.form['password']
-        return render_template('index.html')
-
+        if db.session.query(New).filter(username == New.username).count() &&
+            db.session.query(New).filter(username == New.username).count():
+            return render_template('index.html')
+        return render_template('index.html', message = 'Date invalide')
+        
 # Asta ruleaza cand apasam pe Sign Up
 @app.route('/signup', methods=['POST'])
 def gotosignin():
@@ -91,14 +94,18 @@ def sigin():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        cPassword = request.form['confirm_password']
         if db.session.query(New).filter(New.username == username).count() >= 1:
             return render_template('signup.html',  message = 'Username-ul este deja folosit de catre alt utilizator')
-        if(len(password) < 6):
+        if len(password) < 6:
             return render_template('signup.html',  message = 'Parola prea scurta')
+        if password != cPassword:
+            return render_template('signup.html', message = 'Cele doua parole nu sunt identice')
+        if len(username) < 1:
+            return render_template('signup.html', message = 'Introduceti un username')
         data = New(username, password)
         db.session.add(data)
         db.session.commit()
-        return render_template('success.html')
         return render_template('login.html',  message = 'Sign Up succesful')
 
 if __name__ == '__main__':
