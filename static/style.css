@@ -48,8 +48,8 @@ img {
 	margin: 1rem 0;
 }
 
-input[type='text'],
-input[type = 'password'],
+input[type=text],
+input[type = password],
 select,
 textarea {
 	display: block;
