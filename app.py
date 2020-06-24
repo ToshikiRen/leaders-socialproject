@@ -92,6 +92,7 @@ def gotosignin():
 @app.route('/response', methods=['POST'])
 def sigin():
     if request.method == 'POST':
+        # De adaugat o functie de hashing pentru securizarea datelor
         username = request.form['username']
         password = request.form['password']
         cPassword = request.form['confirm_password']
