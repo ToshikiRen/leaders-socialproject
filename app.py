@@ -75,6 +75,16 @@ def login():
         password = request.form['password']
         return render_template('index.html')
 
+@app.route('/signup' methods = 'POST')
+def gotosignin():
+    if request.method == 'POST':
+        return render_template('signup.html')
+
+@app.route('/response' methods = 'POST')
+def sigin():
+    if request.method == 'POST':
+        return render_template('login.html',  message = 'Sign Up succesful')
+
 if __name__ == '__main__':
     app.run()
 
