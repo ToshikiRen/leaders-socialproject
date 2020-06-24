@@ -47,7 +47,8 @@ class New(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Add login.html, the after login go to index
+    return render_template('login.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -67,7 +68,12 @@ def submit():
             return render_template('success.html')
     return render_template('index.html', message = 'You have already submited feedback')
 
-
+@app.route('/mainpage', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        return render_template('index.html')
 
 if __name__ == '__main__':
     app.run()
