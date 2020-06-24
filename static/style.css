@@ -48,8 +48,14 @@ img {
 	margin: 1rem 0;
 }
 
-input[type=text],
-input[type = password],
+input[type = 'password']{
+	display: block;
+	width: 100%;
+	padding: 0.4rem;
+	font-size: 1.2rem;
+	border: 1px solid #ccc;
+}
+input[type='text'],
 select,
 textarea {
 	display: block;
