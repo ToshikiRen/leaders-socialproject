@@ -80,7 +80,7 @@ def login():
         if (db.session.query(New).filter(New.username == username).count() and
             db.session.query(New).filter(New.password == password).count()):
             return render_template('index.html')
-        return render_template('index.html', message = 'Date invalide')
+        return render_template('login.html', message = 'Date invalide')
 
 # Asta ruleaza cand apasam pe Sign Up
 @app.route('/signup', methods=['POST'])
