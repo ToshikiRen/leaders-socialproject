@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, make_response
 from flask_sqlalchemy import SQLAlchemy
 from send_mail import send_mail
+from app import app, COOKIE_TIME_OUT
 
 app = Flask(__name__)
 
@@ -87,9 +88,9 @@ def login():
             db.session.query(New).filter(New.password == password).count()):
             if remember:
                 resp = make_response(redirect('/login_succes'))
-                resp.set_cookie('username', username, max_age=COOKIE_TIME_OUT)
-                resp.set_cookie('password', password, max_age=COOKIE_TIME_OUT)
-                resp.set_cookie('remember', 'checked', max_age=COOKIE_TIME_OUT)
+                resp.set_cookie('username', username)
+                resp.set_cookie('password', password)
+                resp.set_cookie('remember', 'checked')
                 return resp
             return render_template('index.html')
         return render_template('login.html', message = 'Date invalide')
