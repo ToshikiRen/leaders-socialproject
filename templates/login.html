@@ -24,13 +24,13 @@
         {%endif%}
         <form action="/login_succes" method = "POST">
         <label for="username">Username:</label>
-         <input type="text" id="username" name="username" value = "{% if 'username' in request.cookies%} {{request.cookies.get('username')}} {% endif %}"><br>
+         <input type="text" id="username" name="username" value = "{% if 'password' in request.cookies%} {{request.cookies.get('password')}} {% endif %}"><br>
         <label for="password">Password:</label>
-        <input type="text" class = 'pw' id="password" name="password" value = "{% if 'password' in request.cookies%} {{request.cookies.get('password')}} {% endif %}"><br>
+        <input type="text" class = 'pw' id="password" name="password" value = "{% if 'username' in request.cookies%} {{request.cookies.get('username')}} {% endif %}"><br>
        <div>
          <label for="Tine-ma minte">Tine-ma minte</label>
          <input type="hidden" id="remember" name="remember" >
-        <input type = "checkbox" id = "remember" name = "remember" autocomplete="off" checked="{% if 'remember' in request.cookies %} {{ request.cookies.get('remember') }} {% endif %}">
+        <input type = "checkbox" id = "remember" name = "remember" autocomplete="off" checked="{% if 'remember' in request.cookies %} {{request.cookies.get('remember')}} {% endif %}">
         </div>
         <input type="submit" value="Login" class = "btn"> <br>
   </form>
