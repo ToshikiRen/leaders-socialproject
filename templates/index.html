@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-
-<html>
-    <head>
-    <meta charset = "UTF-8">
-    <meta name="viewport" content = "width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content ="ie=edge">
+{% extends 'base.html' %}
+{% block head %} 
     <link rel="stylesheet" href="../static/style.css">
     <title>MedBase</title>
-    </head>
-    <body>
+{% endblock %}
+
+{% block body %}
     <div class = "container">
         <img src="../static/logo_med.png" alt="MedBase" class = "logo">
         {% if message %}
@@ -59,5 +55,4 @@
         <input type="submit" value="Submit" class="btn" />
         </form>
     </div>
-    </body>
-</html>
+{% endblock %}

@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+{% extends 'base.html' %}
+{% block head %} 
     <link rel="stylesheet" href="../static/style.css" />
     <title>Login</title>
-  </head>
-  <body>
-    <div class="container">
+{% endblock %}
+
+{% block body %}
+  <div class="container">
         <img src="../static/logo_med.png" alt="" class="logo" />
          {% if message %}
             <p class = "message"> {{message | safe}} <p>
@@ -23,5 +20,4 @@
         <input type="submit" value="Sign Up" class = "btn">
 </form>
     </div>
-  </body>
-</html>
+{% endblock %}
