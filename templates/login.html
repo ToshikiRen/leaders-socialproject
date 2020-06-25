@@ -3,7 +3,18 @@
     <link rel="stylesheet" href="../static/style.css" />
     <title>Login</title>
 {% endblock %}
-<!---->
+<!--
+<label for="username">Username:</label>
+        <input type="text" id="username" name="username" value = "{% if 'username' in request.cookies%} {{request.cookies.get('username')}} {% endif %}"><br>
+        <label for="password">Password:</label>
+        <input type="password" class = 'pw' id="password" name="password" value = "{% if 'password' in request.cookies%} {{request.cookies.get('password')}} {% endif %}"><br>
+        <div>
+         <label for="Tine-ma minte">Tine-ma minte</label>
+        <input type = "checkbox" id = "remember" name = "remember" autocomplete="off" checked="{% if 'remember' in request.cookies %} {{ request.cookies.get('remember') }} {% endif %}">
+        </div>
+        <input type="submit" value="Login" class = "btn"> <br>
+
+-->
 {% block body %}
 <div class="container">
         <img src="../static/logo_med.png" alt="" class="logo" />
@@ -13,12 +24,12 @@
         {%endif%}
         <form action="/login_succes" method = "POST">
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value = "{% if 'username' in request.cookies%} {{request.cookies.get('username')}} {% endif %}"><br>
+        <input type="text" id="username" name="username" ><br>
         <label for="password">Password:</label>
-        <input type="password" class = 'pw' id="password" name="password" value = "{% if 'password' in request.cookies%} {{request.cookies.get('password')}} {% endif %}"><br>
+        <input type="password" class = 'pw' id="password" name="password"  ><br>
         <div>
          <label for="Tine-ma minte">Tine-ma minte</label>
-        <input type = "checkbox" id = "remember" name = "remember" autocomplete="off" checked="{% if 'remember' in request.cookies %} {{ request.cookies.get('remember') }} {% endif %}">
+        <input type = "checkbox" id = "remember" name = "remember" autocomplete="off" >
         </div>
         <input type="submit" value="Login" class = "btn"> <br>
   </form>
