@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from send_mail import send_mail
 
@@ -48,7 +48,7 @@ class New(db.Model):
 @app.route('/')
 def index():
     # Add login.html, the after login go to index
-    return render_template('mainpage.html')
+    return render_template('login.html')
 
 @app.route('/login', methods = ['POST'])
 def gotologin():
@@ -82,9 +82,15 @@ def login():
         #TO DO: Adaugare verificare date logare
         username = request.form['username']
         password = request.form['password']
+        remember = request.form['remember']
         if (db.session.query(New).filter(New.username == username).count() and
             db.session.query(New).filter(New.password == password).count()):
-            return render_template('index.html')
+            resp = make_response(redirect('/login_succes'))
+            resp.set_cookie('username', row[2], max_age=COOKIE_TIME_OUT)
+            resp.set_cookie('password', _password, max_age=COOKIE_TIME_OUT)
+            resp.set_cookie('remember', 'checked', max_age=COOKIE_TIME_OUT)
+            return resp
+            # return render_template('index.html')
         return render_template('login.html', message = 'Date invalide')
 
 # Asta ruleaza cand apasam pe Sign Up
