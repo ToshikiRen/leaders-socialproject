@@ -82,7 +82,7 @@ def login():
         #TO DO: Adaugare verificare date logare
         username = request.form['username']
         password = request.form['password']
-        remember = request.form['remember']
+        #remember = request.form['remember']
         if (db.session.query(New).filter(New.username == username).count() and
             db.session.query(New).filter(New.password == password).count()):
             #if remember:
