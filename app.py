@@ -83,10 +83,11 @@ def login():
         username = request.form['username']
         password = request.form['password']
         remember = request.form['remember']
+      
         if (db.session.query(New).filter(New.username == username).count() and
             db.session.query(New).filter(New.password == password).count()):
             if remember:
-                resp = make_response(redirect(url_for('index.html')))
+                resp = make_response(redirect('/login_succes'))
                 resp.set_cookie('username', username)
                 resp.set_cookie('password', password)
                 resp.set_cookie('remember', 'checked')
