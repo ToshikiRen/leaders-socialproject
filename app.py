@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, make_response
 from flask_sqlalchemy import SQLAlchemy
 from send_mail import send_mail
-from app import app, COOKIE_TIME_OUT
 
 app = Flask(__name__)
 
