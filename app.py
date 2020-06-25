@@ -48,7 +48,7 @@ class New(db.Model):
 @app.route('/')
 def index():
     # Add login.html, the after login go to index
-    return render_template('login.html')
+    return render_template('mainpage.html')
 
 #Asta ruleaza cand dam submit datelor introduse in formular
 @app.route('/submit', methods=['POST'])
