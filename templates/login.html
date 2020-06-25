@@ -18,7 +18,7 @@
         <input type="password" class = 'pw' id="password" name="password" value = "{% if 'password' in request.cookies%} {{request.cookies.get('password')}} {% endif %}"><br>
         <div>
          <label for="Tine-ma minte">Tine-ma minte</label>
-        <input type = "checkbox" id = "remember" name = "remember" checked="{% if 'remember' in request.cookies %} {{ request.cookies.get('remember') }} {% endif %}">
+        <input type = "checkbox" id = "remember" name = "remember" autocomplete="off" checked="{% if 'remember' in request.cookies %} {{ request.cookies.get('remember') }} {% endif %}">
         </div>
         <input type="submit" value="Login" class = "btn"> <br>
   </form>
