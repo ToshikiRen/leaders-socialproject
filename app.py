@@ -76,7 +76,7 @@ def submit():
 
 
 # Asta ruleaza cand vrem sa ne conectam la aplicatie
-@app.route('/login_succes', methods=['POST', 'GET'])
+@app.route('/login_succes', methods=['POST'])
 def login():
     if request.method == 'POST':
         #TO DO: Adaugare verificare date logare
@@ -96,7 +96,7 @@ def login():
         return render_template('login.html', message = 'Date invalide')
 
 # Asta ruleaza cand apasam pe Sign Up
-@app.route('/signup', methods=['POST', 'GET'])
+@app.route('/signup', methods=['POST'])
 def gotosignin():
     if request.method == 'POST':
         return render_template('signup.html')
