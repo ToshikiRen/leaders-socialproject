@@ -76,7 +76,7 @@ def submit():
 
 
 # Asta ruleaza cand vrem sa ne conectam la aplicatie
-@app.route('/login_succes', methods=['POST'])
+@app.route('/login_succes', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         #TO DO: Adaugare verificare date logare
@@ -85,17 +85,17 @@ def login():
         remember = request.form['remember']
         if (db.session.query(New).filter(New.username == username).count() and
             db.session.query(New).filter(New.password == password).count()):
-            if remember:
-                resp = make_response(redirect('/login_succes'))
-                resp.set_cookie('username', username)
-                resp.set_cookie('password', password)
-                resp.set_cookie('remember', 'checked')
-                return resp
+            #if remember:
+            #    resp = make_response(redirect('/login_succes'))
+            #    resp.set_cookie('username', username)
+            #    resp.set_cookie('password', password)
+            #    resp.set_cookie('remember', 'checked')
+            #    return resp
             return render_template('index.html')
         return render_template('login.html', message = 'Date invalide')
 
 # Asta ruleaza cand apasam pe Sign Up
-@app.route('/signup', methods=['POST'])
+@app.route('/signup', methods=['POST', 'GET'])
 def gotosignin():
     if request.method == 'POST':
         return render_template('signup.html')
