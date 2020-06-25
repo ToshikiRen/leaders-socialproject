@@ -50,6 +50,11 @@ def index():
     # Add login.html, the after login go to index
     return render_template('mainpage.html')
 
+@app.route('/login', methods = ['POST'])
+def gotologin():
+    if request.method == 'POST':
+        return render_template('login.html') 
+
 #Asta ruleaza cand dam submit datelor introduse in formular
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -71,7 +76,7 @@ def submit():
 
 
 # Asta ruleaza cand vrem sa ne conectam la aplicatie
-@app.route('/login', methods=['POST'])
+@app.route('/login_succes', methods=['POST'])
 def login():
     if request.method == 'POST':
         #TO DO: Adaugare verificare date logare
