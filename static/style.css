@@ -79,13 +79,7 @@ textarea
 	border: 1px solid #ccc;
 }
 
-input[type = 'submit']:hover{
 
-		background-color: #303;  
-}
-a:hover{
-	background-color: #303;
-}
 .btn {
 	display: block;
 	width: 100%;
