@@ -67,9 +67,7 @@ a {
 	text-decoration: none;
 	display: inline-block;
   }
-a:hover, input[type='submit'].btn:hover{
-	background-color: #303;
-}
+
 input[type='text'],
 select,
 textarea
@@ -92,4 +90,7 @@ textarea
 	cursor: pointer;
 	outline: none;
 	margin-top: 1rem;
+}
+a:hover, input[type='submit'].btn:hover{
+	background-color: #303;
 }
