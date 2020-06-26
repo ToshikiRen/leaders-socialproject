@@ -59,7 +59,14 @@ input.pw{
 	border: 1px solid #ccc;
 }
 
-
+a {
+	background-color: #333;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+  }
 
 input[type='text'],
 select,
