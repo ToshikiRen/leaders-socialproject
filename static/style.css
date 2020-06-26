@@ -67,7 +67,9 @@ a {
 	text-decoration: none;
 	display: inline-block;
   }
-
+a:hover, input[type='submit']:hover{
+	background-color: #303;
+}
 input[type='text'],
 select,
 textarea
