@@ -59,6 +59,8 @@ def load_user(user_id):
 @app.route('/')
 def index():
     # Add login.html, the after login go to index
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     return render_template('login.html')
 
 #@app.route('/login', methods = ['POST'])
@@ -68,6 +70,7 @@ def index():
 
 #Asta ruleaza cand dam submit datelor introduse in formular
 @app.route('/submit', methods=['POST'])
+@login_required
 def submit():
     if request.method == 'POST':
         customer = request.form['customer']
