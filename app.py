@@ -93,14 +93,13 @@ def login():
                 resp.set_cookie('remember', 'checked')
 
                 return resp
-            return render_template('index.html')
+            return render_template('index.html', message = 'Debug MSG')
         return render_template('login.html', message = 'Date invalide')
 
 # Asta ruleaza cand apasam pe Sign Up
-@app.route('/signup', methods=['POST'])
+@app.route('/signup', methods=['POST', 'GET'])
 def gotosignin():
-    if request.method == 'POST':
-        return render_template('signup.html')
+    return render_template('signup.html')
 
 # Asta ruleaza cand daum submit datelor pentru creare cont nou
 @app.route('/response', methods=['POST'])
