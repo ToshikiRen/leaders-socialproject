@@ -75,20 +75,22 @@ def submit():
 
 
 # Asta ruleaza cand vrem sa ne conectam la aplicatie
-@app.route('/login_succes', methods=['POST'])
+@app.route('/login_succes', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         #TO DO: Adaugare verificare date logare
         username = request.form['username']
         password = request.form['password']
-        remember = request.form['remember']
-      
+        try:
+            remember = request.form['remember']
+        except:
+            remember = ""
         if (db.session.query(New).filter(New.username == username).count() and
             db.session.query(New).filter(New.password == password).count()):
             if remember:
                 #expire_date = datetime.datetime.now()
                 #expire_date = expire_date + datetime.timedelta(days=90)
-                #resp = make_response(redirect('/login_succes'))
+                resp = make_response(render_template('index.html'))
                 
                 resp.set_cookie('username', username)
                 resp.set_cookie('password', password)
@@ -97,6 +99,7 @@ def login():
                 return resp
             return render_template('index.html', message = 'Debug MSG' + remember)
         return render_template('login.html', message = 'Date invalide')
+    
 
 # Asta ruleaza cand apasam pe Sign Up
 @app.route('/signup', methods=['POST', 'GET'])

@@ -36,8 +36,8 @@
          
          <div>
          <label for="Tine-ma minte">Tine-ma minte</label>
-         <input type="hidden" id="remember" name="remember" >
-        <input type = "checkbox" id = "remember" name = "remember"  checked="{% if 'remember' in request.cookies %} {{request.cookies.get('remember')}} {% endif %}">
+         
+        <input type = "checkbox" id = "remember" name = "remember" autocomplete="off" value = "Yes" checked="{% if 'remember' in request.cookies %} {{request.cookies.get('remember')}} {% endif %}">
         
         </div>
         </div style = 'width:100%'>
