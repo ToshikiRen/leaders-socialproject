@@ -5,11 +5,12 @@
 {% endblock %}
 
 {% block body %}
-  <div class="container" style = 'text-align: center;'>
+  <div class="container" >
+      <a href="/login_succes" class = 'btn' method = 'POST'>Inapoi</a>
       <img src="../static/logo_med.png" alt="" class="logo" /> </br>
       <div>
         <input type = 'text' placeholder = 'Introduceti ...' class = 'CNP' style = 'float:left'>
-        <a href = '/querry' class = 'btn'>Cauta</a>
+        <a href = '/querry' class = 'btn' style = 'float:left; margin-top: 0px' >Cauta</a>
       </div>
   </div>
 {% endblock %}

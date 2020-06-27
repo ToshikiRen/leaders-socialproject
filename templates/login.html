@@ -28,22 +28,33 @@
             <p class = "message"> {{message | safe}} <p>
         {%endif%}
         <form action="/login_succes" method = "POST">
+        
         <label for="username">Username:</label>
-         <input type="text" id="username" name="username" value = "{% if 'username' in request.cookies%}{{request.cookies.get('username')}}{% endif %}"><br>
+         <input type="text" id="username" name="username" 
+         value = "{% if 'username' in request.cookies%}{{request.cookies.get('username')}}{% endif %}"
+         {% if 'username' not in request.cookies %}
+         onkeyup ="this.form.subbut.disabled = this.value == '' || this.form.password.value == '' "
+        {%endif%}><br>
         <label for="password">Password:</label>
-        <input type="password" class = 'pw' id="password" name="password" value = "{% if 'password' in request.cookies %}{{request.cookies.get('password')}}{% endif %}"><br>
+        <input type="password" class = 'pw' id="password" name="password"
+        value = "{% if 'password' in request.cookies %}{{request.cookies.get('password')}}{% endif %}"
+         {% if 'username' not in request.cookies %}
+         onkeyup ="this.form.subbut.disabled = this.value == '' || this.form.username.value == '' "
+         {%endif%}><br>
+        
        <div>
          
          <div>
          <label for="Tine-ma minte">Tine-ma minte</label>
          
-        <input type = "checkbox" id = "remember" name = "remember" autocomplete="off" value = "Yes" checked="{% if 'remember' in request.cookies %} {{request.cookies.get('remember')}} {% endif %}">
+        <input type = "checkbox" id = "remember" name = "remember" autocomplete="off"
+         value = "Yes" checked="{% if 'remember' in request.cookies %} {{request.cookies.get('remember')}} {% endif %}">
         
         </div>
         </div style = 'width:100%'>
         <div style = 'display: inline; width = 100% '>
-        <input type="submit" value="Login" class = "btn" style = 'width:50%;  float: left;' > <br>
-        <a href = '/signup' class = 'btn' style = 'float:left; margin-top: -9.5px;'>Sign Up</a>
+        <input type="submit" value="Login" class = "btn" style = 'width:50%;  float: left;' name ='subbut' > <br>
+        <a href = '/signup' class = 'btn' style = 'float:left; margin-top: -9px;'>Sign Up</a>
         </div>
   </form>
 

@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, make_response, url_
 from flask_sqlalchemy import SQLAlchemy
 from send_mail import send_mail
 import datetime
+from flask_login import  LoginManager, UserMixin, login_user, login_required, current_user, logout_user
 app = Flask(__name__)
 
 ENV = 'prod'
@@ -14,6 +15,11 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://swxnqrtligtnbj:78bd21ec0a30820c6ef6eae5882e8ec22cc529a6e69e013147e5ab1c7644f4b4@ec2-3-234-109-123.compute-1.amazonaws.com:5432/d50i8gfcv8vabf'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 db = SQLAlchemy(app)
 
@@ -33,17 +39,22 @@ class Feedback(db.Model):
         self.comments = comments
 
 
-class New(db.Model):
+class New(UserMixin, db.Model):
     
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(200), unique = True)
-    password = db.Column(db.String(200), )
+    password = db.Column(db.String(80), )
 
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        
+
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return New.query.get(int(user_id))
 # Asta e rulat prima data cand deschidem aplicatia
 @app.route('/')
 def index():
@@ -75,33 +86,50 @@ def submit():
 
 
 # Asta ruleaza cand vrem sa ne conectam la aplicatie
-@app.route('/login_succes', methods=['POST', 'GET'])
+@app.route('/login_succes/', methods=['POST', 'GET'])
 def login():
-    if request.method == 'POST':
-        #TO DO: Adaugare verificare date logare
+    #if request.method == 'POST':
+    #TO DO: Adaugare verificare date logare
+    if current_user.is_authenticated:
+        return render_template('index.html')
+    try:
         username = request.form['username']
+    except:
+        username = ''
+    try:
         password = request.form['password']
-        try:
-            remember = request.form['remember']
-        except:
-            remember = ""
-        if (db.session.query(New).filter(New.username == username).count() and
-            db.session.query(New).filter(New.password == password).count()):
-            if remember:
-                #expire_date = datetime.datetime.now()
-                #expire_date = expire_date + datetime.timedelta(days=90)
-                resp = make_response(render_template('index.html'))
-                
-                resp.set_cookie('username', username)
-                resp.set_cookie('password', password)
-                resp.set_cookie('remember', 'checked')
+    except:
+        password = ''
+    try:
+        remember = request.form['remember']
+    except:
+        remember = ""
+        
+    if (db.session.query(New).filter(username == New.username).count() and
+        db.session.query(New).filter(New.password == password).count()):
+        if not remember:
+            login_user(New.query.filter_by(username = username).first())
+        else:
+            login_user(New.query.filter_by(username = username).first(), remember=True)
+        if remember:
+            #expire_date = datetime.datetime.now()
+            #expire_date = expire_date + datetime.timedelta(days=90)
+            resp = make_response(render_template('index.html'))
+            
+            resp.set_cookie('username', username)
+            resp.set_cookie('password', password)
+            resp.set_cookie('remember', 'checked')
 
-                return resp
-            return render_template('index.html')
+            return resp
+        user = username
+        return render_template('index.html')
+    if username or password:
         return render_template('login.html', message = 'Date invalide')
+    return render_template('login.html')
 
 # Asta ruleaza cand apasam butonul Cautare Pacienti
 @app.route('/querry')
+@login_required
 def querry():
     return render_template('querry_data.html');
 
@@ -130,6 +158,13 @@ def sigin():
         db.session.add(data)
         db.session.commit()
         return render_template('login.html',  message = 'Sign Up succesful')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run()

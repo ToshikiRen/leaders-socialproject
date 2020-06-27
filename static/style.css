@@ -40,7 +40,7 @@ img {
 }
 
 .logo {
-	width: 200px;
+	width: 300px;
 	display: block;
 	margin: auto;
 }
@@ -80,14 +80,23 @@ a.btn {
 
 input[type='text'].CNP
 {
-	display: block;
+	display: inline-block;
 	width: 50%;
 	padding: 0.4rem;
 	font-size: 1.2rem;
 	border: 1px solid #ccc;
 }
   
-
+input[type='submit'].btn:hover:disabled{
+	width: 100%;
+	background: #333;
+	color: #fff;
+	padding: 10px 20px;
+	border: 1px solid #ccc;
+	cursor: pointer;
+	outline: none;
+	margin-top: 1rem;
+}
 
 input[type='text'],
 select,
