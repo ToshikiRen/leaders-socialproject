@@ -99,7 +99,11 @@ def login():
                 return resp
             return render_template('index.html')
         return render_template('login.html', message = 'Date invalide')
-    
+
+# Asta ruleaza cand apasam butonul Cautare Pacienti
+@app.route('/querry')
+def querry():
+    return render_template('querry_data.html');
 
 # Asta ruleaza cand apasam pe Sign Up
 @app.route('/signup', methods=['POST', 'GET'])

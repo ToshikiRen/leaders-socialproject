@@ -40,7 +40,7 @@ img {
 }
 
 .logo {
-	width: 300px;
+	width: 200px;
 	display: block;
 	margin: auto;
 }
@@ -77,6 +77,17 @@ a.btn {
 	width: 50%;
 	
   }
+
+input[type='text'].CNP
+{
+	display: block;
+	width: 50%;
+	padding: 0.4rem;
+	font-size: 1.2rem;
+	border: 1px solid #ccc;
+}
+  
+
 
 input[type='text'],
 select,
