@@ -60,7 +60,7 @@ def load_user(user_id):
 def index():
     # Add login.html, the after login go to index
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect('/login_succes')
     return render_template('login.html')
 
 #@app.route('/login', methods = ['POST'])
@@ -89,7 +89,7 @@ def submit():
 
 
 # Asta ruleaza cand vrem sa ne conectam la aplicatie
-@app.route('/login_succes/', methods=['POST', 'GET'])
+@app.route('/login_succes', methods=['POST', 'GET'])
 def login():
     #if request.method == 'POST':
     #TO DO: Adaugare verificare date logare
