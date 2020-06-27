@@ -97,7 +97,7 @@ def login():
                 resp.set_cookie('remember', 'checked')
 
                 return resp
-            return render_template('index.html', message = 'Debug MSG' + remember)
+            return render_template('index.html')
         return render_template('login.html', message = 'Date invalide')
     
 
