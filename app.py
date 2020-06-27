@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, make_response, url_for
 from flask_sqlalchemy import SQLAlchemy
 from send_mail import send_mail
-
+import datetime
 app = Flask(__name__)
 
 ENV = 'prod'
@@ -87,10 +87,12 @@ def login():
         if (db.session.query(New).filter(New.username == username).count() and
             db.session.query(New).filter(New.password == password).count()):
             if remember:
+                expire_date = datetime.datetime.now()
+                expire_date = expire_date + datetime.timedelta(days=90)
                 resp = make_response(redirect('/login_succes'))
-                resp.set_cookie('username', username)
-                resp.set_cookie('password', password)
-                resp.set_cookie('remember', 'checked')
+                resp.set_cookie('username', username, expires = expire_date)
+                resp.set_cookie('password', password, expires = expire_date)
+                resp.set_cookie('remember', 'checked', expires = expire_date)
 
                 return resp
             return render_template('index.html', message = 'Debug MSG')
