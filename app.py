@@ -94,9 +94,8 @@ def login():
                 resp.set_cookie('password', password, expires = expire_date)
                 resp.set_cookie('remember', 'checked', expires = expire_date)
 
-               #return resp
-                return render_template('index.html', message = 'IN IF')
-            return render_template('index.html', message = 'Debug MSG')
+                return resp
+            return render_template('index.html', message = 'Debug MSG' + remember)
         return render_template('login.html', message = 'Date invalide')
 
 # Asta ruleaza cand apasam pe Sign Up
