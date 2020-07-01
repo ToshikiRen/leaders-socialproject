@@ -45,6 +45,22 @@ img {
 	margin: auto;
 }
 
+.footer {
+	max-width: 650px;
+	margin: 1rem auto;
+	overflow: auto;
+	padding: 0 2rem;
+	bottom:0;
+	position: fixed;
+	text-align: center;
+  }
+
+.leaders {
+	width: 100%;
+	display: block;
+	margin-top: 200px;
+}
+
 .form-group {
 	margin: 1rem 0;
 }
