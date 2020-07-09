@@ -27,15 +27,15 @@ class Feedback(db.Model):
 
     __tablename__ = 'feedback'
     id = db.Column(db.Integer, primary_key = True)
-    customer = db.Column(db.String(200), unique = True)
-    dealer = db.Column(db.String(200), )
-    rating = db.Column(db.Integer)
+    name = db.Column(db.String(200), unique = True)
+    age = db.Column(db.Integer )
+    disease = db.Column(db.String(200))
     comments = db.Column(db.Text())
 
-    def __init__(self, customer, dealer, rating, comments):
-        self.customer = customer
-        self.dealer = dealer
-        self.rating = rating
+    def __init__(self, name, age, disease, comments):
+        self.name = name
+        self.age = age
+        self.disease = disease
         self.comments = comments
 
 
@@ -73,19 +73,21 @@ def index():
 @login_required
 def submit():
     if request.method == 'POST':
-        customer = request.form['customer']
-        dealer = request.form['dealer']
-        rating = request.form['rating']
+        name = request.form['name']
+        age = request.form['age']
+        disease = request.form['disease']
         comments = request.form['comments']
        
-        if customer == '' or dealer == '':
-            return render_template('index.html', message = 'Please enter required fields')
-        if db.session.query(Feedback).filter(Feedback.customer == customer).count() == 0:
-            data = Feedback(customer, dealer, rating, comments)
-            db.session.add(data)
-            db.session.commit()
-            return render_template('success.html')
-    return render_template('index.html', message = 'You have already submited feedback')
+        if name == '' or age == '' or disease == '':
+            return render_template('index.html', message = 'Completati toate campurile')
+        # De modificat dupa ce adaug un alt camp definitoriu pentru persoane, id-ul nu cred
+        # ca-l pot inca accesa pentru ca n-am dat commit
+    # if db.session.query(Feedback).filter(Feedback.name == name).count() == 0:
+        data = Feedback(name, age, disease, comments)
+        db.session.add(data)
+        db.session.commit()
+        return render_template('success.html')
+    return render_template('index.html', message = 'Hello')
 
 
 # Asta ruleaza cand vrem sa ne conectam la aplicatie
