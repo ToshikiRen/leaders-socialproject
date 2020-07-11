@@ -23,11 +23,24 @@ login_manager.login_view = 'login'
 
 db = SQLAlchemy(app)
 
+
+
+disease = [ "Hepatita",
+            "Insuficienta cardiaca" ,
+            "Accident vascular cerebral",
+            "Hipertensiune","Hipotensiune",
+            "Boala Parkinson" ,
+            "Ciroza hepatica",
+            "Epilepsie" ,
+            "Poliartrita reumatoida",
+            "Scleroza multipla"]
+
+
 class Feedback(db.Model):
 
     __tablename__ = 'feedback'
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(200), unique = True)
+    name = db.Column(db.String(200))
     age = db.Column(db.Integer )
     disease = db.Column(db.String(200))
     comments = db.Column(db.Text())
@@ -72,10 +85,21 @@ def index():
 @app.route('/submit', methods=['POST'])
 @login_required
 def submit():
+    global disease
+    all_diseases = ''
     if request.method == 'POST':
         name = request.form['name']
-        age = request.form['age']
-        disease = request.form['disease']
+        try:
+            age = request.form['age']
+        except:
+            age = '0'
+        for d in disease:
+            try:
+                illness = request.form[d]
+                all_diseases += illness
+                all_diseases += '\n'
+            except:
+                illness = ''
         comments = request.form['comments']
        
         if name == '' or age == '' or disease == '':
@@ -83,7 +107,7 @@ def submit():
         # De modificat dupa ce adaug un alt camp definitoriu pentru persoane, id-ul nu cred
         # ca-l pot inca accesa pentru ca n-am dat commit
     # if db.session.query(Feedback).filter(Feedback.name == name).count() == 0:
-        data = Feedback(name, age, disease, comments)
+        data = Feedback(name, age, all_diseases, comments)
         db.session.add(data)
         db.session.commit()
         return render_template('success.html')
@@ -133,10 +157,16 @@ def login():
     return render_template('login.html')
 
 # Asta ruleaza cand apasam butonul Cautare Pacienti
-@app.route('/querry')
+@app.route('/querry', methods = ['POST', 'GET'])
 @login_required
 def querry():
-    return render_template('querry_data.html');
+    data = ''
+    try:
+        value = request.form['value']
+    except:
+        value = ''
+    data = Feedback.query.filter_by(name = value)
+    return render_template('querry_data.html', data = data);
 
 # Asta ruleaza cand apasam pe Sign Up
 @app.route('/signup', methods=['POST', 'GET'])

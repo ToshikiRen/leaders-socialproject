@@ -9,8 +9,32 @@
       <a href="/login_succes" class = 'btn' method = 'POST'>Inapoi</a>
       <img src="../static/logo_med.png" alt="" class="logo" /> </br>
       <div>
-        <input type = 'text' placeholder = 'Introduceti ...' class = 'CNP' style = 'float:left'>
-        <a href = '/querry' class = 'btn' style = 'float:left; margin-top: 0px' >Cauta</a>
+        <form method = 'POST' action = '/querry'>
+        <input type = 'text' name = 'value' placeholder = 'Introduceti ...' class = 'CNP' style = 'float:left' >
+        <input type = 'submit' value = 'Cauta' class = 'btn' style = 'width:50%;  float: left; margin-top:0px' >
+        </form>
+
+        </br>
+        </br>
+        
       </div>
   </div>
+   <table class = 'table'>
+        <thead>
+        <tr>
+          <th scope="col">Nume Prenume</th>
+          <th scope="col">Varsta</th>
+          <th scope="col">Boli</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data %}
+        <tr>
+            <td>{{ row.name }}</td>
+            <td>{{ row.age }}</td>
+            <td>{{ row.disease }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
 {% endblock %}
