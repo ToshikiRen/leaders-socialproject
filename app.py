@@ -52,7 +52,7 @@ class Feedback(db.Model):
         self.comments = comments
 
 
-class New(UserMixin, db.Model):
+class Users(UserMixin, db.Model):
     
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
@@ -67,7 +67,7 @@ class New(UserMixin, db.Model):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return New.query.get(int(user_id))
+    return Users.query.get(int(user_id))
 # Asta e rulat prima data cand deschidem aplicatia
 @app.route('/')
 def index():
@@ -134,12 +134,12 @@ def login():
     except:
         remember = ""
         
-    if (db.session.query(New).filter(username == New.username).count() and
-        db.session.query(New).filter(New.password == password).count()):
+    if (db.session.query(Users).filter(username == Users.username).count() and
+        db.session.query(Users).filter(Users.password == password).count()):
         if not remember:
-            login_user(New.query.filter_by(username = username).first())
+            login_user(Users.query.filter_by(username = username).first())
         else:
-            login_user(New.query.filter_by(username = username).first(), remember=True)
+            login_user(Users.query.filter_by(username = username).first(), remember=True)
         if remember:
             #expire_date = datetime.datetime.now()
             #expire_date = expire_date + datetime.timedelta(days=90)
@@ -181,7 +181,7 @@ def sigin():
         username = request.form['username']
         password = request.form['password']
         cPassword = request.form['confirm_password']
-        if db.session.query(New).filter(New.username == username).count() >= 1:
+        if db.session.query(Users).filter(Users.username == username).count() >= 1:
             return render_template('signup.html',  message = 'Username-ul este deja folosit de catre alt utilizator')
         if len(password) < 6:
             return render_template('signup.html',  message = 'Parola prea scurta')
@@ -189,7 +189,7 @@ def sigin():
             return render_template('signup.html', message = 'Cele doua parole nu sunt identice')
         if len(username) < 1:
             return render_template('signup.html', message = 'Introduceti un username')
-        data = New(username, password)
+        data = Users(username, password)
         db.session.add(data)
         db.session.commit()
         return render_template('login.html',  message = 'Sign Up succesful')
