@@ -165,7 +165,8 @@ def querry():
         value = request.form['value']
     except:
         value = ''
-    data = Feedback.query.filter_by(name = value)
+    value += '%'
+    data = Feedback.query.filter(Feedback.name.like(value))
     return render_template('querry_data.html', data = data);
 
 # Asta ruleaza cand apasam pe Sign Up
