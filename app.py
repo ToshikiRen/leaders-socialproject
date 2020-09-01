@@ -164,9 +164,9 @@ def login():
 def querry():
     data = ''
     try:
-        value = request.form['value']
+        value = '%' + request.form['value']
     except:
-        value = ''
+        value = '%'
     value += '%'
     data = Feedback.query.filter(Feedback.name.like(value))
     return render_template('querry_data.html', data = data);
