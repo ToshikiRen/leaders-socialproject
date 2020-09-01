@@ -3,9 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from send_mail import send_mail
 import datetime
 from flask_login import  LoginManager, UserMixin, login_user, login_required, current_user, logout_user
-app = Flask(__name__)
+from hashutils import make_pw_hash
 
 ENV = 'prod'
+
+app = Flask(__name__)
 
 if ENV == 'dev':
     app.debug = True
@@ -135,7 +137,7 @@ def login():
         remember = ""
         
     if (db.session.query(Users).filter(username == Users.username).count() and
-        db.session.query(Users).filter(Users.password == password).count()):
+        db.session.query(Users).filter(Users.password == make_pw_hash(password)).count()):
         if not remember:
             login_user(Users.query.filter_by(username = username).first())
         else:
@@ -190,7 +192,7 @@ def sigin():
             return render_template('signup.html', message = 'Cele doua parole nu sunt identice')
         if len(username) < 1:
             return render_template('signup.html', message = 'Introduceti un username')
-        data = Users(username, password)
+        data = Users(username, make_pw_hash(password))
         db.session.add(data)
         db.session.commit()
         return render_template('login.html',  message = 'Sign Up succesful')
